@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import allRoutes from "./routes/index"
 import cors from "cors";
+import adminSeeder from "./seeders/AdminSeeder";
 const app = express();
 
 const connect = () => {
@@ -13,6 +14,7 @@ const connect = () => {
     .connect(process.env.MONGO_DATABASE)
     .then(() => console.log("connected to db"))
     .then(() => {
+      adminSeeder()
       app.use(express.json());
     })
     .catch((err) => {
