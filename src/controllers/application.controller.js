@@ -48,6 +48,7 @@ export const createApplication = async (req, res) => {
         }
         // Save the application to the database
         await application.save();
+        console.log("application===",application)
         const emailDTO = {
             sender: { name: 'NAEB Customer Service', address: process.env.MAIL_USER },
             recipients: [{ name, address: email }],

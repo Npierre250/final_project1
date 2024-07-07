@@ -27,7 +27,7 @@ export const loginUser = async (req, res, next) => {
       message: "user logged in successfully!",
       user: {
         id: foundUser.id,
-        firstname: foundUser.firstname,
+        name: foundUser.name,
         email: foundUser.email,
         role: foundUser.role,
         isactive: foundUser.isActive,

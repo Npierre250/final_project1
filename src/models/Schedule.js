@@ -9,8 +9,8 @@ const scheduleSchema = new Schema({
   userEmail: {
     type: String,
   },
-  userId:{
-    type:String
+  userId: {
+    type: String,
   },
   productTitle: {
     type: String,
@@ -27,6 +27,11 @@ const scheduleSchema = new Schema({
   reminder: {
     type: String,
     enum: ["before 1h", "before 2h", "before 3h"],
+  },
+  status: {
+    type: String,
+    enum: ["pending", "approved", "rejected"],
+    default: "pending",
   },
 });
 
