@@ -43,7 +43,7 @@ const ApplicationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    Status: {
+    status: {
       type:String,
       enum:['pending','rejected','approved'],
       default:'pending'
