@@ -17,10 +17,9 @@ export const loginUser = async (req, res, next) => {
     }
     const userToken = {
       _id: foundUser.id,
-      firstname: foundUser.firstname,
+      name: foundUser.name,
       email: foundUser.email,
       role: foundUser.role,
-      isactive: foundUser.isActive,
     };
     const token = generateToken(userToken);
     return res.status(200).json({

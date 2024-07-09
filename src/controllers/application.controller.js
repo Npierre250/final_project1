@@ -16,7 +16,12 @@ export const createApplication = async (req, res) => {
         if (!licenceCopy) {
           return res.status(400).json({ error: 'Licence copy is required' });
         }
-  
+
+        const appExists=await Application.findOne({email})
+
+        if(appExists){
+          return res.status(403).json({message:"application already exists"})
+        }
         // Create a new application
         const application = new Application({
           idNumber,
@@ -58,7 +63,8 @@ export const createApplication = async (req, res) => {
           };
 
           await sendEmail(emailDTO);
-  
+
+          console.log("application===",application)
         return res.status(201).json({ message: 'Application created successfully', application });
     } catch (error) {
         console.log(error)
@@ -77,7 +83,7 @@ export const createApplication = async (req, res) => {
         return res.status(404).json({ error: 'Application not found' });
       }
   
-      application.Status = status;
+      application.status = status;
       await application.save();
   
       if (status === 'approved') {
@@ -89,7 +95,7 @@ export const createApplication = async (req, res) => {
           const randomPassword = generateRandomPassword();
           
           // Hash the password
-          const hashedPassword = BcryptUtil.hash(randomPassword);
+          const hashedPassword = await BcryptUtil.hash(randomPassword);
   
           user = new User({
             name: application.name,
@@ -100,8 +106,8 @@ export const createApplication = async (req, res) => {
           });
   
           await user.save();
-
-          const data={
+  
+          const data = {
             htmlMessage: `
             <html>
               <body>
@@ -118,7 +124,7 @@ export const createApplication = async (req, res) => {
               </body>
             </html>
           `
-          }
+          };
           const emailDTO = {
             sender: { name: 'NAEB Customer Service', address: process.env.MAIL_USER },
             recipients: [{ name: application.name, address: application.email }],
@@ -130,10 +136,21 @@ export const createApplication = async (req, res) => {
           await sendEmail(emailDTO);
         }
       }
-  
       return res.status(200).json({ message: 'Application status updated successfully', application });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: error.message });
     }
   };
+  
+
+
+  export const getApplications=async(req,res)=>{
+    try{
+      const applications=await Application.find();
+      return res.status(200).json(applications)
+    }
+    catch(error){
+      return res.status(500).json({message:error.message})
+    }
+  }
