@@ -32,9 +32,6 @@ const subscriptionSchema = new mongoose.Schema({
   sender: {
     type: String,
   },
-  senderCountry: {
-    type: String,
-  },
   mobileNumber: {
     type: String,
   },
