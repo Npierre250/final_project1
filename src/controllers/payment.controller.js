@@ -5,8 +5,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const createSubscription = async (req, res) => {
+  const user = req.user;
   const {
-    userId,
     amount,
     currency,
     beneficiaryName,
@@ -41,19 +41,17 @@ export const createSubscription = async (req, res) => {
 
     const subscriptionDate = new Date();
     const expiryDate = new Date(subscriptionDate);
-    expiryDate.setFullYear(expiryDate.getFullYear() + 1); // Set expiry date to one year from now
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
 
     const subscription = new Subscription({
-      userId,
+      userId: user._id,
       amount,
       currency,
       subscriptionDate,
       expiryDate,
       status: response.data.status,
       transactionId: response.data.data.id,
-      beneficiaryName,
-      sender,
-      senderCountry,
+      sender: user.name,
       mobileNumber,
     });
 
