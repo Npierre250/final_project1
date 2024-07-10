@@ -7,6 +7,9 @@ import bodyParser from "body-parser";
 import allRoutes from "./routes/index"
 import cors from "cors";
 import adminSeeder from "./seeders/AdminSeeder";
+
+import './jobs/checkSubscriptions.js';
+
 const app = express();
 
 const connect = () => {
