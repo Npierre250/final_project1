@@ -69,18 +69,11 @@ export const createSubscription = async (req, res) => {
 
 export const getAllSubscriptions = async (req, res) => {
   try {
-    // Find the admin user
     const user = req.user
     if (!user || user.role!=="superAdmin") {
       return res.status(403).json({ message: 'unauthorized user!' });
     }
-
-    // Retrieve all users except the admin
     const subscriptions= await Subscription.find();
-
-    // Check if each user is an admin
-
-    // Send a response back to the client
     res.status(200).json( subscriptions);
   } catch (error) {
     console.error(error);

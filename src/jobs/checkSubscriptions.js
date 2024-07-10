@@ -6,7 +6,7 @@ import {sendEmail} from "../services/email.service.js"
 const checkSubscriptions = async () => {
     const now = new Date();
     const expiringSoon = new Date(now);
-    expiringSoon.setDate(now.getDate() + 30); 
+    expiringSoon.setDate(now.getDate() + 30); // Check for subscriptions expiring in the next 30 days
   
     const subscriptions = await Subscription.find({
       expiryDate: { $lte: expiringSoon },
@@ -26,5 +26,5 @@ const checkSubscriptions = async () => {
     });
   };
   
+  // Run the job every day at midnight
   cron.schedule("0 0 * * *", checkSubscriptions);
-  
