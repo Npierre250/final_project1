@@ -20,7 +20,6 @@ export const loginUser = async (req, res, next) => {
       name: foundUser.name,
       email: foundUser.email,
       role: foundUser.role,
-      // isactive: foundUser.isActive,
     };
     const token = generateToken(userToken);
     return res.status(200).json({
