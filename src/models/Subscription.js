@@ -25,6 +25,7 @@ const subscriptionSchema = new mongoose.Schema({
   status: {
     type: String,
     default: "pending",
+    enum:["pending","success","failed"]
   },
   transactionId: {
     type: String,
@@ -35,6 +36,8 @@ const subscriptionSchema = new mongoose.Schema({
   mobileNumber: {
     type: String,
   },
+},{
+  timestamps:true
 });
 
 const Subscription = mongoose.model("Subscription", subscriptionSchema);

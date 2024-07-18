@@ -33,6 +33,8 @@ const scheduleSchema = new Schema({
     enum: ["pending", "approved", "rejected"],
     default: "pending",
   },
+},{
+  timestamps:true
 });
 
 const Schedule = mongoose.model("Schedule", scheduleSchema);
