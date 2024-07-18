@@ -18,8 +18,10 @@ export const loginUser = async (req, res, next) => {
     const userToken = {
       _id: foundUser.id,
       name: foundUser.name,
+      name: foundUser.name,
       email: foundUser.email,
       role: foundUser.role,
+      // isactive: foundUser.isActive,
     };
     const token = generateToken(userToken);
     return res.status(200).json({
@@ -84,7 +86,7 @@ export const getAllUsers = async (req, res) => {
     // Check if each user is an admin
 
     // Send a response back to the client
-    res.status(200).json({ message: 'Users retrieved successfully', users });
+    res.status(200).json( users );
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error. Please try again later.' });

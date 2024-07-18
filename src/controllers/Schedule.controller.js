@@ -1,4 +1,5 @@
 import Schedule from "../models/Schedule";
+import Subscription from "../models/Subscription";
 
 export const createSchedule = async (req, res) => {
   try {
@@ -7,6 +8,11 @@ export const createSchedule = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: "user must be authenticated!" });
     }
+
+    // const subscription=await Subscription.findById(user._id)
+    // if(subscription.status==="failed"){
+    //   return res.status(401).json({message:"subscribe first to schedule your delivery!!"})
+    // }
     const { productTitle, productWeight, deliveryTime, reminder } = req.body;
 
     const newSchedule = new Schedule({
