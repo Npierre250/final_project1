@@ -143,7 +143,7 @@ export const payment = async (req, res) => {
           error: err
         })
       }
-    }, 120000)
+    }, 900000)
   } catch (error) {
     console.log(error)
     return res.status(500).json(error)
